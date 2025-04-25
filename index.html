@@ -1,22 +1,39 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8">
-  <title>Google Maps + Firebase 地點管理器</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    /* 你的樣式… */
-  </style>
+  <meta charset="UTF-8" />
+  <title>Maps + Firebase 地點管理器</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- 引入你的 style.css -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- 介面略 -->
-  
-  <!-- 改成 Compat 版 SDK： -->
+  <h1>📍 Firebase 地點管理器</h1>
+
+  <div class="form">
+    <input type="text" id="placeName" placeholder="地點名稱（可不填）" />
+    <input type="text" id="address" placeholder="地址 (e.g. 台中市南屯區黎明路一段560號)" />
+    <button onclick="geocode()">查經緯度</button>
+    <button onclick="addPlace()">新增地點</button>
+  </div>
+
+  <div id="map"></div>
+
+  <h2>📋 所有地點</h2>
+  <ul id="placeList"></ul>
+
+  <!-- 1. Firebase Compat SDK -->
   <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-database-compat.js"></script>
-  
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSy…&callback=initMap&libraries=places"
-          async defer></script>
+
+  <!-- 2. Google Maps SDK：把 YOUR_API_KEY 換成你的完整金鑰 -->
+  <script
+    async
+    defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBePGpMn_g7ly6nX3oVrOSWzC0i91L49V4&callback=initMap&libraries=places">
+  </script>
+
+  <!-- 3. 你的主 logic -->
   <script src="script.js"></script>
 </body>
 </html>
