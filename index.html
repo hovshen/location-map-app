@@ -2,38 +2,56 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
-  <title>Maps + Firebase 地點管理器</title>
+  <title>雲端地點管理器 2.0</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- 引入你的 style.css -->
   <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
 </head>
 <body>
-  <h1>📍 Firebase 地點管理器</h1>
-
-  <div class="form">
-    <input type="text" id="placeName" placeholder="地點名稱（可不填）" />
-    <input type="text" id="address" placeholder="地址 (e.g. 台中市南屯區黎明路一段560號)" />
-    <button onclick="geocode()">查經緯度</button>
-    <button onclick="addPlace()">新增地點</button>
+  <!-- 1. 使用者帳號系統 -->
+  <div id="auth">
+    <button id="btn-login-google">Google 登入</button>
+    <button id="btn-logout" hidden>登出</button>
   </div>
 
+  <!-- 2. 篩選標籤 -->
+  <div id="filter">
+    <select id="tagFilter" multiple placeholder="篩選標籤"></select>
+  </div>
+
+  <!-- 3. 上傳圖片 + 備註 -->
+  <div id="form">
+    <input id="placeName" placeholder="地點名稱（可空）" />
+    <input id="address" placeholder="地址" />
+    <button id="btn-geocode">查經緯度</button>
+    <input id="tags" placeholder="標籤，逗號分隔" />
+    <textarea id="notes" placeholder="備註"></textarea>
+    <input type="file" id="photo" accept="image/*" />
+    <button id="btn-add">新增地點</button>
+  </div>
+
+  <!-- 4. 地圖 + 進階控制 -->
+  <div id="mapControls">
+    <button id="btn-maptype">切換衛星/街道</button>
+    <button id="btn-locate">我的位置</button>
+    <button id="btn-export">匯出 JSON</button>
+    <input type="file" id="importFile" />
+  </div>
   <div id="map"></div>
 
-  <h2>📋 所有地點</h2>
+  <h2>📋 地點清單</h2>
   <ul id="placeList"></ul>
 
-  <!-- 1. Firebase Compat SDK -->
+  <!-- Firebase + Maps SDK -->
   <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-database-compat.js"></script>
-
-  <!-- 2. Google Maps SDK：把 YOUR_API_KEY 換成你的完整金鑰 -->
+  <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-storage-compat.js"></script>
   <script
-    async
-    defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBePGpMn_g7ly6nX3oVrOSWzC0i91L49V4&callback=initMap&libraries=places">
-  </script>
-
-  <!-- 3. 你的主 logic -->
+  async
+  defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBePGpMn_g7ly6nX3oVrOSWzC0i91L49V4&callback=initApp&libraries=places,geometry">
+</script>
   <script src="script.js"></script>
 </body>
 </html>
